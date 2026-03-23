@@ -1,0 +1,13 @@
+{
+    "tonight": {
+      "status": "pending",
+      "reason": null,
+      "decided_at": null,
+      "meal": null,
+      "source": null,
+      "skip_checkin": false
+    },
+    "agent_paused": false,
+    "pause_until": null,
+    "last_user_message": null
+  }

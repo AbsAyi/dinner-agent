@@ -1,0 +1,55 @@
+{
+    "_meta": {
+      "version": "1.0",
+      "window_days": 7,
+      "notes": "Rolling 7-day meal log. Agent reads this to avoid repeats and infer usage."
+    },
+  
+    "meals": [
+      {
+        "date": "2026-03-16",
+        "meal": "Chicken quesadillas",
+        "source": "cooked",
+        "energy_level": "medium",
+        "ingredients_used": ["chicken_thighs", "tortillas", "shredded_cheese"],
+        "kid_approved": true,
+        "rating": null
+      },
+      {
+        "date": "2026-03-15",
+        "meal": "Hibachi takeout",
+        "source": "takeout",
+        "energy_level": "low",
+        "ingredients_used": [],
+        "kid_approved": true,
+        "rating": null
+      },
+      {
+        "date": "2026-03-14",
+        "meal": "Fried rice",
+        "source": "cooked",
+        "energy_level": "medium",
+        "ingredients_used": ["eggs", "rice", "soy_sauce", "frozen_chicken_nuggets"],
+        "kid_approved": true,
+        "rating": null
+      },
+      {
+        "date": "2026-03-13",
+        "meal": "Pasta with marinara",
+        "source": "cooked",
+        "energy_level": "high",
+        "ingredients_used": ["pasta", "olive_oil"],
+        "kid_approved": true,
+        "rating": null
+      },
+      {
+        "date": "2026-03-12",
+        "meal": "Pizza delivery",
+        "source": "takeout",
+        "energy_level": "low",
+        "ingredients_used": [],
+        "kid_approved": true,
+        "rating": null
+      }
+    ]
+  }

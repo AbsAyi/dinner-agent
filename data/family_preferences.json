@@ -1,0 +1,43 @@
+{
+    "_meta": {
+      "version": "1.0",
+      "notes": "Static-ish file. Update manually or via agent conversation. This is what Claude reads to personalize recommendations."
+    },
+  
+    "household": {
+      "adults": 1,
+      "kids": [
+        {
+          "age_range": "elementary",
+          "preferences": ["sushi", "pasta", "jerk chicken", "pizza", "fried rice"],
+          "dislikes": ["chick peas", "red beans"],
+          "notes": "Texture is a thing. Keep sauces on the side when possible."
+        }
+      ]
+    },
+  
+    "dietary": {
+      "restrictions": [],
+      "preferences": ["quick meals on weeknights", "one-pan when possible"],
+      "avoid": []
+    },
+  
+    "cuisine_rotation": {
+      "favorites": ["Mexican", "Asian-inspired", "Italian", "American comfort"],
+      "occasional": ["Mediterranean", "Caribbean"],
+      "avoid": []
+    },
+  
+    "cooking_constraints": {
+      "max_weeknight_prep_minutes": 35,
+      "low_energy_max_minutes": 20,
+      "notes": "After a long day, anything over 20 min feels heroic."
+    },
+  
+    "takeout": {
+      "trigger_conditions": ["energy = low AND pantry confidence generally low", "long work day", "it's Friday"],
+      "preferred_cuisines": ["hibachi", "pizza", "Thai", "Mexican"],
+      "budget_preference": "reasonable — not every night though",
+      "notes": "Takeout is a legitimate decision, not a failure state."
+    }
+  }
