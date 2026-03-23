@@ -1,13 +1,13 @@
 {
-    "tonight": {
-      "status": "pending",
-      "reason": null,
-      "decided_at": null,
-      "meal": null,
-      "source": null,
-      "skip_checkin": false
-    },
-    "agent_paused": false,
-    "pause_until": null,
-    "last_user_message": null
-  }
+  "tonight": {
+    "status": "recommendation_sent",
+    "reason": null,
+    "decided_at": "2026-03-23T14:44:36.901502Z",
+    "meal": null,
+    "source": null,
+    "skip_checkin": false
+  },
+  "agent_paused": false,
+  "pause_until": null,
+  "last_user_message": null
+}
