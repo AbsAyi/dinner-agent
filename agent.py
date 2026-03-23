@@ -241,4 +241,11 @@ if __name__ == "__main__":
     recommendation = get_dinner_recommendation(data)
     print("TONIGHT'S RECOMMENDATION:")
     print(recommendation)
+    from sms import send_sms
+
+    sms_ok = send_sms(recommendation)
+    if sms_ok:
+        print("Recommendation sent via SMS")
+    else:
+        print("SMS failed - check sms.py")
 
