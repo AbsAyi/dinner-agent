@@ -1,0 +1,487 @@
+{
+    "_meta": {
+      "version": "1.0",
+      "notes": "Structured known meals (not the full universe of allowed recommendations). Optional quick_steps and substitution_hints enrich follow-up messages. The agent also ranks pantry-inferred meals alongside these templates."
+    },
+    "templates": [
+        {
+            "meal_key": "chicken_quesadillas",
+            "display_name": "Chicken Quesadillas",
+            "cuisine": "Mexican",
+            "kid_friendly": true,
+            "energy_fit": ["low", "medium"],
+            "max_minutes": 25,
+            "required_items": [
+              "tortillas",
+              "chicken",
+              "cheese"
+            ],
+            "optional_items": [
+              "bell_peppers",
+              "onion",
+              "salsa",
+              "sour_cream",
+              "guacamole",
+              "jalapenos",
+              "cilantro"
+            ],
+            "used_up_likely": [
+              "tortillas",
+              "chicken",
+              "cheese"
+            ],
+            "repeat_tolerance_days": 4,
+            "quick_steps": [
+              "Cook onion and peppers if using",
+              "Heat chicken with seasoning",
+              "Layer cheese and chicken in tortillas",
+              "Cook in pan until crispy and melty",
+              "Slice and serve"
+            ],
+            "substitution_hints": [
+              "No cooked chicken? Use black beans, or any leftover cooked meat cut small."
+            ],
+            "notes": "Core rule: tortilla + chicken + cheese = dinner. Everything else is optional."
+          },
+
+        {
+            "meal_key": "beef_tacos",
+            "display_name": "Beef Tacos",
+            "cuisine": "Mexican",
+            "kid_friendly": true,
+            "energy_fit": ["low", "medium"],
+            "max_minutes": 20,
+            "required_items": [
+                "ground_beef",
+                "taco_seasoning",
+                "tortillas",
+                "cheese"
+            ],
+            "optional_items": [
+                "lettuce",
+                "tomatoes",
+                "sour_cream",
+                "salsa",
+                "guacamole"
+            ],
+            "used_up_likely": [
+                "ground_beef",
+                "tortillas",
+                "cheese"
+            ],
+            "repeat_tolerance_days": 4,
+            "quick_steps": [
+                "Cook ground beef and add seasoning",
+                "Warm tortillas",
+                "Assemble with cheese and toppings",
+                "Serve"
+            ],
+            "notes": "Flexible, fast, and always works."
+          },
+
+      {
+        "meal_key": "fried_rice",
+        "display_name": "Fried rice",
+        "cuisine": "Asian-inspired",
+        "kid_friendly": true,
+        "energy_fit": ["low", "medium"],
+        "max_minutes": 20,
+        "required_items": ["rice", "eggs"],
+        "optional_items": ["soy_sauce", "frozen_vegetables", "chicken", "shrimp"],
+        "fallback_items": ["microwave_rice"],
+        "used_up_likely": ["eggs", "rice"],
+        "repeat_tolerance_days": 4,
+        "takeout_alternative": "hibachi or Chinese takeout",
+        "quick_steps": [
+          "Scramble eggs in a hot pan; set aside.",
+          "Stir-fry rice with a little oil until hot.",
+          "Add soy sauce, protein or veg if using; fold eggs back in.",
+          "Taste, adjust salt, serve right away."
+        ],
+        "substitution_hints": [
+          "Day-old rice browns best; if the rice is fresh, spread it on a plate to cool so it does not go mushy.",
+          "Any cooked protein or extra veg works - this is a clean-out-the-fridge meal."
+        ],
+        "notes": "Best when pantry confidence is moderate but rice and eggs are solid."
+      },
+
+      {
+        "meal_key": "nigerian_stew",
+        "display_name": "Nigerian Stew",
+        "cuisine": "Caribbean",
+        "kid_friendly": true,
+        "energy_fit": ["high"],
+        "max_minutes": 90,
+        "required_items": [
+          "bell_peppers",
+          "onion",
+          "tomato_paste",
+          "tomato_sauce",
+          "oil",
+          "protein"
+        ],
+        "optional_items": [
+          "scotch_bonnet",
+          "chicken",
+          "beef",
+          "turkey",
+          "meat_stock",
+          "seasoning_cubes",
+          "thyme",
+          "curry",
+          "bay_leaf",
+          "rice"
+        ],
+        "used_up_likely": [
+          "tomato_paste",
+          "tomato_sauce",
+          "onion",
+          "oil",
+          "protein"
+        ],
+        "repeat_tolerance_days": 7,
+        "quick_steps": [
+          "Cook and season meat, saving the stock",
+          "Blend peppers and onion, then cook down to reduce",
+          "Fry tomato paste in oil with onions until deep red",
+          "Add tomato sauce and pepper blend, fry until rich and thick",
+          "Add meat and stock, simmer until fully combined and flavorful"
+        ],
+        "notes": "Weekend meal with leftovers for days. High effort but high payoff."
+      },
+
+      {
+        "meal_key": "baked_ziti",
+        "display_name": "Baked Ziti",
+        "cuisine": "Italian",
+        "kid_friendly": true,
+        "energy_fit": ["medium", "high"],
+        "max_minutes": 60,
+        "required_items": [
+          "pasta",
+          "marinara_sauce",
+          "ricotta",
+          "mozzarella"
+        ],
+        "optional_items": [
+          "ground_beef",
+          "italian_sausage",
+          "onion",
+          "garlic",
+          "crushed_tomatoes",
+          "parmesan",
+          "egg",
+          "spinach",
+          "fresh_basil"
+        ],
+        "used_up_likely": [
+          "pasta",
+          "marinara_sauce",
+          "ricotta",
+          "mozzarella"
+        ],
+        "repeat_tolerance_days": 6,
+        "quick_steps": [
+          "Boil pasta slightly underdone and drain",
+          "Cook meat with onion and garlic, add sauce and simmer",
+          "Mix ricotta, egg, parmesan, and mozzarella",
+          "Layer pasta, cheese mixture, and sauce in baking dish",
+          "Bake until bubbly and golden, then rest before serving"
+        ],
+        "notes": "Comfort meal. Best when you have time or want leftovers. Not a low-energy night choice."
+      },
+
+      {
+        "meal_key": "pork_chops",
+        "display_name": "Pork Chops",
+        "cuisine": "American comfort",
+        "kid_friendly": true,
+      
+        "energy_fit": ["medium"],
+        "max_minutes": 25,
+      
+        "required_items": [
+          "pork_chops"
+        ],
+      
+        "optional_items": [
+          "butter",
+          "garlic",
+          "olive_oil",
+          "thyme",
+          "rosemary",
+          "lemon_juice"
+        ],
+      
+        "used_up_likely": [
+          "pork_chops"
+        ],
+      
+        "repeat_tolerance_days": 5,
+      
+        "quick_steps": [
+          "Season pork chops on both sides",
+          "Sear in hot pan until browned on both sides",
+          "Lower heat and add butter and garlic",
+          "Spoon butter over chops until cooked through",
+          "Rest briefly before serving"
+        ],
+      
+        "notes": "Simple protein dinner. Pair with anything (rice, veggies, bread)."
+      },
+      {
+        "meal_key": "chicken_alfredo",
+        "display_name": "Chicken Alfredo",
+        "cuisine": "Italian",
+        "kid_friendly": true,
+      
+        "energy_fit": ["low", "medium"],
+        "max_minutes": 20,
+      
+        "required_items": [
+          "pasta",
+          "alfredo_sauce",
+          "chicken"
+        ],
+      
+        "optional_items": [
+          "broccoli",
+          "garlic",
+          "parmesan"
+        ],
+      
+        "used_up_likely": [
+          "pasta",
+          "alfredo_sauce",
+          "chicken"
+        ],
+      
+        "repeat_tolerance_days": 4,
+      
+        "quick_steps": [
+          "Boil pasta",
+          "Cook and season chicken",
+          "Heat alfredo sauce and add broccoli if using",
+          "Combine everything and serve"
+        ],
+      
+        "notes": "Ultra-reliable pantry meal. Jar does most of the work."
+      },
+      {
+        "meal_key": "beef_stroganoff",
+        "display_name": "Beef Stroganoff",
+        "cuisine": "American comfort",
+        "kid_friendly": true,
+      
+        "energy_fit": ["medium"],
+        "max_minutes": 35,
+      
+        "required_items": [
+          "beef",
+          "onion",
+          "mushrooms",
+          "beef_broth",
+          "sour_cream"
+        ],
+      
+        "optional_items": [
+          "garlic",
+          "dijon_mustard",
+          "worcestershire_sauce",
+          "butter",
+          "flour",
+          "egg_noodles",
+          "rice",
+          "mashed_potatoes",
+          "parsley"
+        ],
+      
+        "used_up_likely": [
+          "beef",
+          "mushrooms",
+          "onion",
+          "sour_cream"
+        ],
+      
+        "repeat_tolerance_days": 5,
+      
+        "quick_steps": [
+          "Sear beef quickly in hot pan and set aside",
+          "Cook onions and mushrooms until browned",
+          "Add garlic, then stir in broth, mustard, and Worcestershire",
+          "Simmer to thicken, then lower heat and stir in sour cream",
+          "Return beef and warm gently, serve over noodles or rice"
+        ],
+      
+        "notes": "Feels fancy but still doable on a weeknight. Not ideal if energy is very low."
+      },
+
+      {
+        "meal_key": "jerk_chicken",
+        "display_name": "Jerk Chicken",
+        "cuisine": "Caribbean",
+        "kid_friendly": true,
+        "energy_fit": ["low", "medium"],
+        "max_minutes": 120,
+        "required_items": [
+          "chicken",
+          "jerk_seasoning"
+        ],
+        "optional_items": [
+          "rice",
+          "vegetables"
+        ],
+        "used_up_likely": [
+          "chicken"
+        ],
+        "repeat_tolerance_days": 6,
+        "quick_steps": [
+          "Coat chicken in jerk seasoning",
+          "Place in oven",
+          "Cook until tender and fully done",
+          "Serve with rice if using"
+        ],
+        "notes": "Low effort but long cook time. Great when you have time but not energy."
+      },
+
+      {
+        "meal_key": "etouffee",
+        "display_name": "Etouffee",
+        "cuisine": "Creole",
+        "kid_friendly": true,
+        "energy_fit": ["low", "medium"],
+        "max_minutes": 25,
+        "required_items": [
+          "protein",
+          "etouffee_seasoning",
+          "rice"
+        ],
+        "optional_items": [
+          "chicken",
+          "shrimp"
+        ],
+        "used_up_likely": [
+          "protein"
+        ],
+        "repeat_tolerance_days": 6,
+        "quick_steps": [
+          "Saute chichen (if using)",
+          "Peel and devein shrimp (if using)",
+          "Add etouffee seasoning to the pan with butter or oil and cook until browned",
+          "Add water and chicken/shrimp",
+          "Cook until tender and fully done",
+          "Serve with rice"
+        ],
+        "notes": "Best when you have a little energy and want something satisfying."
+      },
+
+      {
+        "meal_key": "spaghetti_meatballs",
+        "display_name": "Spaghetti and Meatballs",
+        "cuisine": "Italian",
+        "kid_friendly": true,
+      
+        "energy_fit": ["low"],
+        "max_minutes": 20,
+      
+        "required_items": [
+          "pasta",
+          "marinara_sauce",
+          "frozen_meatballs"
+        ],
+        "optional_items": [
+          "parmesan",
+          "garlic_bread"
+        ],
+        "used_up_likely": [
+          "pasta",
+          "marinara_sauce",
+          "frozen_meatballs"
+        ],
+        "repeat_tolerance_days": 4,
+        "quick_steps": [
+          "Boil pasta",
+          "Heat meatballs in sauce",
+          "Combine and serve"
+        ],
+        "notes": "Lowest effort full meal. Great for truly exhausted nights."
+      },
+
+      {
+        "meal_key": "pizza_night",
+        "display_name": "Pizza night",
+        "cuisine": "American comfort",
+        "kid_friendly": true,
+        "energy_fit": ["low"],
+        "max_minutes": 10,
+        "required_items": [],
+        "optional_items": ["frozen_pizza"],
+        "fallback_items": [],
+        "used_up_likely": ["frozen_pizza"],
+        "repeat_tolerance_days": 5,
+        "takeout_alternative": "pizza delivery",
+        "notes": "Agent should treat this as a valid fallback, especially Friday."
+      },
+      {
+        "meal_key": "hibachi_takeout",
+        "display_name": "Hibachi takeout",
+        "cuisine": "Asian-inspired",
+        "kid_friendly": true,
+        "energy_fit": ["low"],
+        "max_minutes": 5,
+        "required_items": [],
+        "optional_items": [],
+        "fallback_items": [],
+        "used_up_likely": [],
+        "repeat_tolerance_days": 4,
+        "takeout_alternative": "hibachi",
+        "notes": "Strong fallback when pantry confidence is low and energy is low."
+      },
+      {
+        "meal_key": "pepper_steak",
+        "display_name": "Pepper Steak",
+        "cuisine": "Asian-inspired",
+        "kid_friendly": true,
+      
+        "energy_fit": ["medium"],
+        "max_minutes": 30,
+      
+        "required_items": [
+          "beef",
+          "bell_peppers",
+          "onion",
+          "soy_sauce"
+        ],
+      
+        "optional_items": [
+          "garlic",
+          "ginger",
+          "beef_broth",
+          "oyster_sauce",
+          "hoisin_sauce",
+          "sesame_oil",
+          "cornstarch",
+          "rice",
+          "noodles"
+        ],
+      
+        "used_up_likely": [
+          "beef",
+          "bell_peppers",
+          "onion"
+        ],
+      
+        "repeat_tolerance_days": 5,
+      
+        "quick_steps": [
+          "Slice and marinate beef briefly with soy sauce and cornstarch",
+          "Sear beef in hot pan in batches and set aside",
+          "Stir-fry peppers and onions, then add garlic and ginger",
+          "Return beef, add sauce, and cook until thickened",
+          "Serve over rice or noodles"
+        ],
+      
+        "notes": "Feels like takeout but faster. Best when you have a little energy and want something satisfying."
+      }
+    ]
+  }

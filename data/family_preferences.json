@@ -9,22 +9,23 @@
       "kids": [
         {
           "age_range": "elementary",
-          "preferences": ["sushi", "pasta", "jerk chicken", "pizza", "fried rice"],
-          "dislikes": ["chick peas", "red beans"],
-          "notes": "Texture is a thing. Keep sauces on the side when possible."
+          "loves": ["pizza", "jerk chicken", "sushi"],
+          "likes": ["pasta", "fried rice ", "mac and cheese"],
+          "dislikes": ["chick peas", "red beans", "beets"],
+          "notes": []
         }
       ]
     },
   
     "dietary": {
       "restrictions": [],
-      "preferences": ["quick meals on weeknights", "one-pan when possible"],
+      "preferences": ["quick meals on weeknights"],
       "avoid": []
     },
   
     "cuisine_rotation": {
-      "favorites": ["Mexican", "Asian-inspired", "Italian", "American comfort"],
-      "occasional": ["Mediterranean", "Caribbean"],
+      "favorites": [],
+      "occasional": [],
       "avoid": []
     },
   
@@ -36,8 +37,14 @@
   
     "takeout": {
       "trigger_conditions": ["energy = low AND pantry confidence generally low", "long work day", "it's Friday"],
-      "preferred_cuisines": ["hibachi", "pizza", "Thai", "Mexican"],
+      "preferred_cuisines": [],
       "budget_preference": "reasonable — not every night though",
       "notes": "Takeout is a legitimate decision, not a failure state."
-    }
+    },
+
+    "dinner_modes": {
+      "low_energy": ["takeout", "super quick cooked"],
+      "medium_energy": ["simple cooked meals", "sheet pan meals", "stir fry"],
+      "high_energy": ["new recipe", "multi-step dinner"]
+}
   }

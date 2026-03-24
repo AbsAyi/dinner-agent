@@ -7,47 +7,52 @@
   
     "meals": [
       {
-        "date": "2026-03-16",
-        "meal": "Chicken quesadillas",
+        "date": "2026-03-23",
+        "meal": "Pork chops with mashed potatoes",
+        "category": "American",
         "source": "cooked",
         "energy_level": "medium",
-        "ingredients_used": ["chicken_thighs", "tortillas", "shredded_cheese"],
+        "ingredients_used": ["pork_chops", "mashed_potatoes"],
         "kid_approved": true,
         "rating": null
       },
       {
-        "date": "2026-03-15",
-        "meal": "Hibachi takeout",
-        "source": "takeout",
-        "energy_level": "low",
-        "ingredients_used": [],
+        "date": "2026-03-22",
+        "meal": "Etouffee",
+        "category": "Creole",
+        "source": "cooked",
+        "energy_level": "medium",
+        "ingredients_used": ["chicken breasts", "etouffee_seasoning", "rice"],
         "kid_approved": true,
         "rating": null
       },
       {
-        "date": "2026-03-14",
+        "date": "2026-03-21",
         "meal": "Fried rice",
+        "category": "Asian",
         "source": "cooked",
         "energy_level": "medium",
-        "ingredients_used": ["eggs", "rice", "soy_sauce", "frozen_chicken_nuggets"],
+        "ingredients_used": ["eggs", "rice", "soy_sauce", "chicken_nuggets"],
         "kid_approved": true,
         "rating": null
       },
       {
-        "date": "2026-03-13",
-        "meal": "Pasta with marinara",
+        "date": "2026-03-20",
+        "meal": "Cheeseburgers",
+        "category": "American",
         "source": "cooked",
-        "energy_level": "high",
-        "ingredients_used": ["pasta", "olive_oil"],
+        "energy_level": "low",
+        "ingredients_used": ["beef_burgers", "cheese", "bread", "ketchup"],
         "kid_approved": true,
         "rating": null
       },
       {
-        "date": "2026-03-12",
-        "meal": "Pizza delivery",
-        "source": "takeout",
+        "date": "2026-03-19",
+        "meal": "Chicken Alfredo",
+        "category": "Italian",
+        "source": "cooked",
         "energy_level": "low",
-        "ingredients_used": [],
+        "ingredients_used": ["chicken", "broccoli", "pasta", "alfredo_sauce"],
         "kid_approved": true,
         "rating": null
       }

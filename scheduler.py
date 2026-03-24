@@ -1,10 +1,29 @@
 from __future__ import annotations
 
+"""
+Long-running orchestrator for the dinner agent email loop.
+
+This module is the single entry point to run continuously: it schedules the daily
+Gmail energy check-in (4:30 PM local time by default) and repeatedly polls the inbox
+via ``inventory.fetch_and_process_emails``. That function handles grocery receipts,
+allowlisted command mail (energy replies, meal picks, pantry commands), and applies
+labels so work stays idempotent—no need to run ``python inventory.py`` manually.
+
+``inventory.py`` owns all Gmail read/modify/send logic and data side effects; this file
+only wires the schedule and prints high-level logs.
+"""
+
 import json
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict
+
+# How often to poll Gmail (minutes). Keep between 1 and 5 for responsive replies.
+INBOX_POLL_INTERVAL_MINUTES = 3
+
+# How often the main loop wakes to evaluate scheduled jobs (seconds).
+SCHEDULER_TICK_SECONDS = 30
 
 
 def _load_state(state_path: Path) -> Dict[str, Any]:
@@ -20,10 +39,11 @@ def _save_state(state_path: Path, state: Dict[str, Any]) -> None:
 
 
 def run_daily_checkin() -> None:
+    """Scheduled once per day: send the energy check-in email (skip/pause logic unchanged)."""
+    print(f"[scheduler] daily energy check-in triggered at {datetime.now(timezone.utc).isoformat()}")
     repo_root = Path(__file__).resolve().parent
     state_path = repo_root / "data" / "agent_state.json"
 
-    # 1. Reads data/agent_state.json
     state = _load_state(state_path)
 
     tonight = state.get("tonight")
@@ -31,41 +51,88 @@ def run_daily_checkin() -> None:
         tonight = {}
         state["tonight"] = tonight
 
-    # 2. Checks if tonight.skip_checkin is True — if so, print and return early
     if bool(tonight.get("skip_checkin")) is True:
-        print("Checkin skipped for tonight")
+        print("[scheduler] check-in skipped for tonight (skip_checkin)")
         return
 
-    # 3. Checks if agent_paused is True — if so, print and return early
     if bool(state.get("agent_paused")) is True:
-        print("Agent is paused")
+        print("[scheduler] check-in skipped (agent_paused)")
         return
 
-    # 4. If neither, import and call these in order:
-    #    - load_data() from agent.py
-    #    - get_dinner_recommendation(data) from agent.py
-    #    - send_sms(recommendation) from sms.py
-    from agent import get_dinner_recommendation, load_data
-    from sms import send_sms
+    from gmail_sender import (
+        ENERGY_CHECKIN_EMAIL_SUBJECT,
+        energy_checkin_email_body,
+        send_agent_email,
+    )
 
-    data = load_data()
-    recommendation = get_dinner_recommendation(data)
-    sms_ok = send_sms(recommendation)
+    body = energy_checkin_email_body()
+    email_ok = send_agent_email(ENERGY_CHECKIN_EMAIL_SUBJECT, body)
 
-    # 5. After sending, update agent_state.json
     now_ts = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-    tonight["status"] = "recommendation_sent"
-    tonight["decided_at"] = now_ts
+    tonight["status"] = "awaiting_energy"
+    tonight["energy_level"] = None
+    tonight["checkin_sent_at"] = now_ts
+    tonight["checkin_channel"] = "gmail"
+    tonight.pop("recommendation_sent_at", None)
+    tonight.pop("energy_received_at", None)
     _save_state(state_path, state)
 
-    # 6. Print summary of what happened
-    print("Daily check-in summary:")
-    print(f"- SMS status: {'success' if sms_ok else 'failed'}")
-    print(f"- tonight.status: {tonight.get('status')}")
-    print(f"- tonight.decided_at: {tonight.get('decided_at')}")
+    if email_ok:
+        print("[scheduler] energy check-in email sent")
+    else:
+        print("[scheduler] energy check-in email failed to send")
+
+    print("[scheduler] daily check-in summary:")
+    print(f"  - Email status: {'success' if email_ok else 'failed'}")
+    print(f"  - tonight.status: {tonight.get('status')}")
+    print(f"  - tonight.checkin_sent_at: {tonight.get('checkin_sent_at')}")
+    print("  - Reply with low, medium, or high; inbox polling will pick it up.")
 
 
-def schedule_daily(hour: int = 16, minute: int = 30) -> None:
+def run_inbox_poll() -> None:
+    """
+    Poll Gmail and process matching messages (receipts, commands, replies).
+
+    Idempotency relies on labels and queries in ``inventory.fetch_and_process_emails``;
+    safe to call every few minutes.
+    """
+    print(f"[scheduler] inbox poll start ({datetime.now(timezone.utc).isoformat()})")
+    try:
+        from inventory import fetch_and_process_emails
+
+        summary = fetch_and_process_emails()
+    except Exception as e:
+        print(f"[scheduler] inbox poll error: {e}")
+        return
+
+    found = int(summary.get("emails_found") or 0)
+    proc = int(summary.get("emails_processed") or 0)
+    skipped = int(summary.get("emails_skipped") or 0)
+    rc = summary.get("route_counts") or {}
+    print(
+        f"[scheduler] inbox poll done: "
+        f"merged_ids={found} processed={proc} skipped={skipped} "
+        f"routes={rc}"
+    )
+    conf = int(summary.get("confirmations_sent") or 0)
+    if conf:
+        print(
+            f"[scheduler]   confirmations_sent={conf} "
+            f"energy_replies={int(summary.get('energy_checkin_replies') or 0)} "
+            f"meal_selections={int(summary.get('meal_selections_confirmed') or 0)}"
+        )
+
+
+def run_scheduler_loop(
+    *,
+    checkin_hour: int = 16,
+    checkin_minute: int = 30,
+    inbox_poll_minutes: int = INBOX_POLL_INTERVAL_MINUTES,
+) -> None:
+    """
+    Long-running loop: daily check-in at ``checkin_hour:checkin_minute`` and
+    inbox polling every ``inbox_poll_minutes`` (clamped to 1–5).
+    """
     try:
         import schedule  # type: ignore[import-not-found]
     except ImportError as e:
@@ -73,19 +140,29 @@ def schedule_daily(hour: int = 16, minute: int = 30) -> None:
             "The 'schedule' library is required. Install it with: pip install schedule"
         ) from e
 
-    time_str = f"{hour:02d}:{minute:02d}"
+    poll_min = max(1, min(5, int(inbox_poll_minutes)))
+    time_str = f"{checkin_hour:02d}:{checkin_minute:02d}"
+
     schedule.every().day.at(time_str).do(run_daily_checkin)
+    schedule.every(poll_min).minutes.do(run_inbox_poll)
 
-    print(f"Dinner agent scheduler started. Running daily at {time_str}")
+    print("[scheduler] --- startup ---")
+    print("[scheduler] Dinner agent orchestrator started")
+    print(f"[scheduler] Daily check-in time: {time_str}")
+    print(f"[scheduler] Inbox polling interval: {poll_min} minute(s)")
+    print(f"[scheduler] Scheduler tick: every {SCHEDULER_TICK_SECONDS}s (pending jobs)")
+    print("[scheduler] Running initial inbox poll immediately...")
+    run_inbox_poll()
 
-    # Continuous loop checking every 60 seconds
     while True:
         schedule.run_pending()
-        time.sleep(60)
+        time.sleep(SCHEDULER_TICK_SECONDS)
 
 
 if __name__ == "__main__":
-    schedule_daily() # comment out to run immediately
+    # Default: long-running orchestrator (check-in + inbox polling).
+    run_scheduler_loop()
 
-    # run_daily_checkin()  # uncomment to test immediately
-
+    # Manual tests (uncomment one):
+    # run_daily_checkin()
+    # run_inbox_poll()

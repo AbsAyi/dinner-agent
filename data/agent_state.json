@@ -2,10 +2,78 @@
   "tonight": {
     "status": "recommendation_sent",
     "reason": null,
-    "decided_at": "2026-03-23T14:44:36.901502Z",
+    "decided_at": "2026-03-24T17:14:10.918877Z",
     "meal": null,
     "source": null,
-    "skip_checkin": false
+    "skip_checkin": false,
+    "checkin_channel": "gmail",
+    "energy_level": "low",
+    "checkin_sent_at": "2026-03-24T18:38:47.269100Z",
+    "energy_received_at": "2026-03-24T18:51:52.381908Z",
+    "recommendation_options": [
+      {
+        "rank": 1,
+        "meal_key": "fried_rice",
+        "display_name": "Fried rice",
+        "category": "Asian-inspired",
+        "source": "template",
+        "matched_items": [
+          "White Rice"
+        ],
+        "missing_items": [],
+        "time_minutes": 20,
+        "takeout": false,
+        "quick_steps": [
+          "Scramble eggs in a hot pan; set aside.",
+          "Stir-fry rice with a little oil until hot.",
+          "Add soy sauce, protein or veg if using; fold eggs back in.",
+          "Taste, adjust salt, serve right away."
+        ],
+        "optional_matched_items": [
+          "Soy Sauce",
+          "Frozen Chicken Nuggets",
+          "shrimp"
+        ]
+      },
+      {
+        "rank": 2,
+        "meal_key": "chicken_alfredo",
+        "display_name": "Chicken Alfredo",
+        "category": "Italian",
+        "source": "template",
+        "matched_items": [
+          "pasta",
+          "Alfredo Sauce",
+          "Frozen Chicken Nuggets"
+        ],
+        "missing_items": [],
+        "time_minutes": 20,
+        "takeout": false,
+        "quick_steps": [
+          "Boil pasta",
+          "Cook and season chicken",
+          "Heat alfredo sauce and add broccoli if using",
+          "Combine everything and serve"
+        ],
+        "optional_matched_items": [
+          "Shredded Cheddar Cheese"
+        ]
+      },
+      {
+        "rank": 3,
+        "meal_key": "pizza_night",
+        "display_name": "Pizza night",
+        "category": "American comfort",
+        "source": "template",
+        "matched_items": [],
+        "missing_items": [],
+        "time_minutes": 10,
+        "takeout": true,
+        "quick_steps": [],
+        "optional_matched_items": []
+      }
+    ],
+    "recommendation_sent_at": "2026-03-24T18:51:52.399400Z"
   },
   "agent_paused": false,
   "pause_until": null,
